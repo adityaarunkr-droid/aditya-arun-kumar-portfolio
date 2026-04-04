@@ -1,0 +1,793 @@
+/* Scoped styles for the "About me" pass section (inspired by the provided snippet). */
+.amc {
+  margin-top: clamp(36px, 6vw, 72px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.amc__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  gap: clamp(18px, 3vw, 44px);
+  padding: clamp(18px, 3vw, 42px);
+  /* Desktop: top-align so the ID card reads under the “Professional” block, not mid-timeline */
+  align-items: start;
+}
+
+.amc__label {
+  font: 700 11px/1.2 'Syne', system-ui, sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(200, 241, 53, 0.9);
+  margin-bottom: 12px;
+}
+
+.amc__title {
+  font: 800 clamp(23px, 3.05vw, 38px) / 1.1 'Syne', system-ui, sans-serif;
+  letter-spacing: -0.038em;
+  color: #ffffff;
+  margin: 0 0 14px;
+}
+
+.amc__titleAccent {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(200, 241, 53, 0.95), rgba(124, 92, 252, 0.92));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.amc__desc {
+  font: 400 14px/1.75 'DM Sans', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.58);
+  max-width: 56ch;
+  margin: 0 0 22px;
+}
+
+.amc__stats {
+  display: flex;
+  gap: clamp(18px, 3vw, 34px);
+  flex-wrap: wrap;
+}
+
+/* Compact timeline (fits under the headline/description) */
+.amc__miniTimeline {
+  position: relative;
+  margin-top: 22px;
+  display: grid;
+  gap: 22px;
+  padding: 22px 20px 22px 26px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(900px 260px at 14% -8%, rgba(163, 230, 53, 0.11), transparent 58%),
+    radial-gradient(720px 240px at 92% 16%, rgba(124, 92, 252, 0.09), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+  box-shadow:
+    0 28px 100px rgba(0, 0, 0, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.amc__miniTimeline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.02) 22%,
+    transparent 55%
+  );
+  opacity: 0.75;
+}
+
+.amc__miniRail {
+  position: absolute;
+  left: 26px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(163, 230, 53, 0) 0%,
+    rgba(163, 230, 53, 0.25) 18%,
+    rgba(255, 255, 255, 0.12) 52%,
+    rgba(163, 230, 53, 0.18) 82%,
+    rgba(163, 230, 53, 0) 100%
+  );
+  box-shadow:
+    0 0 22px rgba(163, 230, 53, 0.18),
+    0 0 44px rgba(163, 230, 53, 0.08);
+}
+
+.amc__miniRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 4px 0;
+}
+
+.amc__miniRow--experience {
+  padding-top: 4px;
+}
+
+.amc__miniRow--education .amc__miniTitle {
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.28;
+  letter-spacing: -0.022em;
+}
+
+.amc__miniDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(200, 241, 53, 0.95);
+  box-shadow:
+    0 0 0 6px rgba(163, 230, 53, 0.08),
+    0 0 26px rgba(163, 230, 53, 0.22);
+  margin-top: 6px;
+  transform: translateX(-1px);
+  z-index: 1;
+}
+
+.amc__miniDot::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.18), transparent 65%);
+  filter: blur(2px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.amc__miniTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.amc__miniKicker {
+  font: 700 10px/1.1 'Syne', system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(200, 241, 53, 0.85);
+}
+
+.amc__miniDate {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.62);
+  padding: 6px 10px;
+  border-radius: 999px;
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.25;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.amc__miniTitle {
+  font: 780 clamp(14px, 1.35vw, 16px) / 1.22 'Syne', system-ui, sans-serif;
+  letter-spacing: -0.028em;
+  color: rgba(255, 255, 255, 0.93);
+  margin-bottom: 8px;
+}
+
+.amc__miniMeta {
+  font: 500 12px/1.3 'DM Sans', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.60);
+  margin-bottom: 6px;
+}
+
+.amc__miniDesc {
+  font: 400 12.5px/1.68 'DM Sans', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.56);
+  max-width: 52ch;
+}
+
+.amc__miniRow--experience .amc__miniTitle {
+  letter-spacing: -0.02em;
+}
+
+.amc__miniRow--experience .amc__miniDesc {
+  margin-top: 12px;
+}
+
+.amc__statNum {
+  font: 800 28px/1 'Syne', system-ui, sans-serif;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.amc__statNum span {
+  color: rgba(200, 241, 53, 0.95);
+}
+.amc__statLabel {
+  font: 400 12px/1.2 'DM Sans', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 4px;
+}
+
+/* Right side: the pass card — flex-start so the card isn’t vertically centered in a tall grid row */
+.amc__scene {
+  perspective: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* Room for lanyard (extends above .amc__wrapper); tighter on stacked/mobile layout */
+  padding: clamp(28px, 5vw, 40px) 12px clamp(20px, 3vw, 28px);
+  cursor: grab;
+  /* Let finger drags drive tilt without the page scrolling */
+  touch-action: none;
+}
+
+@media (min-width: 901px) {
+  .amc__scene {
+    padding-top: clamp(80px, 9vw, 104px);
+  }
+}
+
+.amc__scene:active {
+  cursor: grabbing;
+}
+
+/* Touch / coarse pointer: no idle float; tilt is driven by pointer events */
+.amc__scene--staticTouch {
+  cursor: grab;
+}
+
+.amc__scene--staticTouch:active {
+  cursor: grabbing;
+}
+
+.amc__scene--staticTouch .amc__wrapper {
+  animation: none;
+  will-change: auto;
+  transform: rotateY(-8deg) rotateX(4deg);
+}
+
+.amc__wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: amc-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Mouse-follow tilt overrides the idle float animation */
+.amc__wrapper--tilt {
+  animation: none;
+}
+
+@keyframes amc-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotateY(-8deg) rotateX(4deg);
+  }
+  50% {
+    transform: translateY(-18px) rotateY(-4deg) rotateX(2deg);
+  }
+}
+
+.amc__lanyard {
+  position: absolute;
+  top: -84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.amc__lanyardClip {
+  width: 28px;
+  height: 18px;
+  background: linear-gradient(135deg, #4a4a5a, #2a2a35);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+.amc__lanyardClip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #3a3a48;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.amc__lanyardString {
+  width: 3px;
+  height: 60px;
+  background: linear-gradient(180deg, #3a3a48, rgba(58, 58, 72, 0.3));
+  margin-top: 8px;
+}
+
+.amc__card {
+  width: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #efefef;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.ltm {
+  margin-top: 13px;
+  transform: scale(0.9);
+  transform-origin: top center;
+  opacity: 0.97;
+}
+
+@media (max-width: 900px) {
+  .ltm {
+    transform: scale(0.93);
+  }
+}
+
+@media (max-width: 400px) {
+  .ltm {
+    transform: scale(0.88);
+  }
+
+  .ltm__card {
+    max-width: min(268px, calc(100vw - 2.5rem));
+  }
+}
+
+.ltm__card {
+  width: 100%;
+  max-width: 268px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 60px 120px rgba(0, 0, 0, 0.8),
+    0 24px 48px rgba(0, 0, 0, 0.55),
+    0 8px 16px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform-style: preserve-3d;
+}
+
+.ltm__header {
+  background: #c94022;
+  padding: 16px 18px 14px;
+}
+
+.ltm__brandRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ltm__ltBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ltm__ltEmblem {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.ltm__ltText {
+  font-size: 7.5px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.ltm__brand {
+  font-size: 32px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.ltm__fullName {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.48);
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ltm__stripe {
+  height: 22px;
+  background: #a33018;
+}
+
+.ltm__photo {
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+  object-position: center 10%;
+  background: linear-gradient(160deg, #d4a97a, #b8845a);
+}
+
+.ltm__info {
+  background: #fff5f0;
+  padding: 14px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ltm__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ltm__label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(180, 70, 20, 0.45);
+  min-width: 68px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.ltm__value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a0e08;
+  line-height: 1.45;
+}
+
+.ltm__statusDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  margin-right: 5px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  animation: ltm-statusPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ltm-statusPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+  }
+}
+
+.ltm__divider {
+  height: 1px;
+  background: rgba(200, 80, 30, 0.1);
+}
+
+.ltm__tag {
+  display: inline-block;
+  background: rgba(201, 64, 34, 0.1);
+  border: 1px solid rgba(201, 64, 34, 0.2);
+  color: #b03018;
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  margin: 2px 6px 2px 0;
+}
+
+.ltm__barBlack {
+  height: 9px;
+  background: linear-gradient(90deg, #111 0%, #333 50%, #111 100%);
+}
+
+.ltm__barOrange {
+  height: 14px;
+  background: #c94022;
+}
+
+.ltm__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 10;
+  background: radial-gradient(
+    circle at var(--ltm-glare-x, 50%) var(--ltm-glare-y, 50%),
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.06) 38%,
+    transparent 65%
+  );
+  transition: background 0.05s ease;
+}
+
+.amc__rainbow {
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    #ff3b3b 0%,
+    #ff8c00 16%,
+    #ffd700 32%,
+    #00cc44 48%,
+    #00aaff 64%,
+    #6644ff 80%,
+    #cc00ff 100%
+  );
+}
+
+.amc__header {
+  padding: 14px 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #ffffff;
+  margin: 7px 7px 0;
+  border-radius: 13px 13px 0 0;
+}
+
+.amc__tag {
+  font: 800 11px/1.2 'Syne', system-ui, sans-serif;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.amc__logoDot {
+  width: 28px;
+  height: 28px;
+  background: rgba(200, 241, 53, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.amc__logoDot svg {
+  width: 14px;
+  height: 14px;
+}
+
+.amc__photoArea {
+  padding: 16px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  margin: 0 7px;
+  position: relative;
+}
+
+.amc__avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  background: linear-gradient(135deg, #d4a8c7, #c9a0dc, #b8d4e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 28px/1 'Syne', system-ui, sans-serif;
+  color: white;
+  position: relative;
+}
+.amc__avatar::after {
+  content: '✓';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  background: #0057ff;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font-size: 10px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amc__name {
+  font: 800 16px/1.15 'Syne', system-ui, sans-serif;
+  color: #111111;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.amc__role {
+  font: 500 10px/1.1 'DM Sans', system-ui, sans-serif;
+  color: #888888;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.amc__sheet {
+  background: #ffffff;
+  margin: 0 7px 7px;
+  border-radius: 0 0 13px 13px;
+  padding: 14px 7px 18px;
+}
+
+.amc__divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0 7px 14px;
+}
+
+.amc__info {
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.amc__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.amc__fieldLabel {
+  font: 600 10px/1.1 'DM Sans', system-ui, sans-serif;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.amc__fieldValue {
+  font: 700 12px/1.1 'DM Sans', system-ui, sans-serif;
+  color: #222;
+  text-align: right;
+}
+
+.amc__fieldValue--active {
+  color: #22aa44;
+}
+
+.amc__barcode {
+  margin: 14px 14px 0;
+  height: 32px;
+  background:
+    repeating-linear-gradient(90deg, #222 0px, #222 2px, transparent 2px, transparent 5px),
+    repeating-linear-gradient(90deg, #222 0px, #222 1px, transparent 1px, transparent 3px);
+  border-radius: 4px;
+  opacity: 0.18;
+}
+
+.amc__glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: 20px;
+}
+
+.amc__chip {
+  position: absolute;
+  background: rgba(22, 22, 31, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font: 600 12px/1 'DM Sans', system-ui, sans-serif;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.amc__chipDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.amc__chipDot1 {
+  background: rgba(200, 241, 53, 0.95);
+}
+.amc__chipDot2 {
+  background: rgba(168, 146, 255, 0.95);
+}
+.amc__chipDot3 {
+  background: rgba(255, 107, 107, 0.95);
+}
+
+.amc__chip1 {
+  top: 20px;
+  right: -110px;
+  color: rgba(200, 241, 53, 0.95);
+  animation: amc-chipFloat1 5s ease-in-out infinite;
+}
+.amc__chip2 {
+  bottom: 80px;
+  right: -130px;
+  color: rgba(168, 146, 255, 0.95);
+  animation: amc-chipFloat2 6s ease-in-out infinite;
+}
+.amc__chip3 {
+  bottom: 20px;
+  left: -120px;
+  color: rgba(255, 107, 107, 0.95);
+  animation: amc-chipFloat1 7s ease-in-out infinite reverse;
+}
+
+@keyframes amc-chipFloat1 {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes amc-chipFloat2 {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@media (max-width: 900px) {
+  .amc__grid {
+    grid-template-columns: 1fr;
+  }
+  .amc__right {
+    padding-top: 14px;
+  }
+  .amc__chip1,
+  .amc__chip2,
+  .amc__chip3 {
+    display: none;
+  }
+}
+

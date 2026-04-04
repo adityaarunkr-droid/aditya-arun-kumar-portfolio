@@ -1,0 +1,116 @@
+/*
+ * Home continuation: sticky canvas + story (inside #home). overflow-x: clip breaks sticky.
+ */
+.about-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-x: visible;
+  background: #121212;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.about-intro > .about-intro__stack {
+  padding-left: max(14px, env(safe-area-inset-left, 0px), clamp(12px, 4vw, 80px));
+  padding-right: max(14px, env(safe-area-inset-right, 0px), clamp(12px, 4vw, 80px));
+}
+
+.about-intro__stack {
+  width: 100%;
+  max-width: min(960px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 5vh, 48px);
+  padding-top: clamp(24px, 5vh, 48px);
+  padding-bottom: clamp(40px, 10vh, 88px);
+}
+
+/* Full-width runway for sticky canvas (avoid 100vw to reduce horizontal scroll). */
+.about-intro__heroBleed {
+  width: 100%;
+  position: relative;
+}
+
+.about-intro__heroName {
+  margin: 0;
+  font-family: 'Syne', system-ui, Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 11vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  color: #ffffff;
+  text-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.5),
+    0 12px 48px rgba(0, 0, 0, 0.35);
+}
+
+.about-intro__heroDot {
+  color: #ffffff;
+}
+
+.about-intro__heroRole {
+  margin: 1rem 0 0;
+  font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.15rem, 2.8vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #9ca3af;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+}
+
+.about-intro__story {
+  width: 100%;
+  max-width: 52ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: center;
+  padding: 0 clamp(8px, 3vw, 16px);
+}
+
+.about-intro__storyLead {
+  font-family: 'Syne', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+}
+
+.about-intro__story p {
+  margin: 0;
+  font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+  font-size: clamp(14px, 1.35vw, 16px);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+@media (max-width: 768px) {
+  .about-intro__heroName {
+    font-size: clamp(2.25rem, 11vw + 0.2rem, 3.5rem);
+  }
+
+  .about-intro__heroRole {
+    font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+    margin-top: 0.75rem;
+  }
+
+  .about-intro__stack {
+    gap: clamp(1.25rem, 4vh, 2rem);
+    padding-top: clamp(1rem, 3vh, 1.5rem);
+    padding-bottom: clamp(2rem, 8vh, 3.5rem);
+  }
+}
+
+@media (max-width: 380px) {
+  .about-intro__heroName {
+    font-size: clamp(2rem, 10.5vw, 2.65rem);
+  }
+}

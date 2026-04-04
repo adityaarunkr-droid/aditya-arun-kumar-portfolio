@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="A monogram — tech">
+  <title>Aditya Arun Kumar — futuristic tech</title>
+  <!-- Variation 2: Subtle code brackets + electric A (drop brackets for favicon-scale exports) -->
+  <path
+    fill="none"
+    stroke="#22d3ee"
+    stroke-width="1.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M5.5 11 8.5 16 5.5 21M26.5 11l-3 5 3 5"
+    opacity="0.9"
+  />
+  <path
+    fill="#38bdf8"
+    fill-rule="evenodd"
+    d="M16 4.5 28.5 28h-4.4l-2.5-8.6H10.4L7.9 28H3.5L16 4.5Zm0 7.5-3.5 8.6h7L16 12Z"
+  />
+</svg>

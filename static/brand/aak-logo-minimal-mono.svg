@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="A monogram">
+  <title>Aditya Arun Kumar — single color</title>
+  <!-- Use fill="currentColor" when inlining for light/dark UI -->
+  <path
+    fill="currentColor"
+    fill-rule="evenodd"
+    d="M16 3.5 29.5 29h-5l-2.7-9.2H10.2L7.5 29H2L16 3.5Zm0 8.2-3.8 9.4h7.6L16 11.7Z"
+  />
+</svg>

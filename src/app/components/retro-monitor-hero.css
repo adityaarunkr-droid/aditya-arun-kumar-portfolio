@@ -1,0 +1,224 @@
+.rmh {
+  position: relative;
+  padding: clamp(22px, 4vw, 56px) 0 clamp(16px, 3vw, 32px);
+}
+
+/* Full-viewport hero: no outer box shrinking the TV */
+.rmh--fullBleed {
+  padding: 0;
+  width: 100%;
+  max-width: min(860px, 78vw, calc(100% - clamp(2rem, 6vw, 4rem)));
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .rmh--fullBleed {
+    max-width: 100%;
+  }
+}
+
+.rmh--fullBleed .rmh__wrap {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.rmh__wrap {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* No CSS black panel — any void comes from the photo; home page adds .hero-glow behind */
+.rmh__wrap--image {
+  background: transparent;
+}
+
+.rmh__bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 3;
+  background: transparent;
+  mix-blend-mode: normal;
+}
+
+.rmh--fullBleed .rmh__wrap.rmh__wrap--image {
+  overflow: visible;
+}
+
+/*
+  CRT screen hit area — tuned for amstrad-hero.png (CTM644 centered in frame).
+*/
+.rmh__screenOverlay,
+.rmh__screenText {
+  position: absolute;
+  left: 37.1%;
+  top: 25.9%;
+  width: 25.8%;
+  height: 36.5%;
+  border-radius: 10px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rmh__screenOverlay {
+  z-index: 4;
+}
+
+.rmh__screenText {
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7% 6.5% 8.5%;
+  box-sizing: border-box;
+}
+
+/* Darken reflective “off” CRT so phosphor text pops */
+.rmh__screenMask {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(110% 100% at 50% 42%, rgba(0, 28, 16, 0.88), rgba(0, 6, 4, 0.96));
+  opacity: 0.52;
+}
+
+.rmh__screenFx {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      rgba(0, 0, 0, 0) 3px,
+      rgba(0, 0, 0, 0) 6px
+    ),
+    radial-gradient(120% 100% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.rmh__screenGlass {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 340px at 50% 0%, rgba(255, 255, 255, 0.10), transparent 55%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.06), transparent 35%, transparent 68%, rgba(255, 255, 255, 0.04));
+  mix-blend-mode: screen;
+  opacity: 0.22;
+}
+
+/* Terminal typography + glow */
+.rmh__terminalText {
+  text-align: center;
+  width: 100%;
+  max-width: 32ch;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  letter-spacing: -0.01em;
+  color: rgba(167, 243, 208, 0.96);
+  text-shadow:
+    0 0 10px rgba(16, 185, 129, 0.35),
+    0 0 22px rgba(16, 185, 129, 0.20),
+    0 1px 0 rgba(0, 0, 0, 0.35);
+  filter: saturate(1.1);
+  transform: translateZ(0);
+  animation: rmh-flicker 6.5s ease-in-out infinite;
+}
+
+.rmh__terminalText--typing {
+  opacity: 0;
+  animation:
+    rmh-text-in 0.5s ease-out 0.15s forwards,
+    rmh-flicker 6.5s ease-in-out infinite;
+}
+
+.rmh__line--typed {
+  font-size: clamp(12px, 1.35vw, 18px);
+  line-height: 1.3;
+  white-space: pre-wrap;
+}
+
+.rmh__line--typed + .rmh__line--typed {
+  margin-top: clamp(8px, 1.1vw, 12px);
+}
+
+.rmh__cursor {
+  display: inline-block;
+  margin-left: 4px;
+  color: rgba(167, 243, 208, 0.98);
+  text-shadow:
+    0 0 10px rgba(16, 185, 129, 0.40),
+    0 0 18px rgba(16, 185, 129, 0.22);
+  animation: rmh-cursor 0.9s steps(1, end) infinite;
+}
+
+.rmh__cursor--idle {
+  opacity: 0.9;
+}
+
+@keyframes rmh-flicker {
+  0% {
+    opacity: 1;
+    filter: saturate(1.08);
+  }
+  48% {
+    opacity: 0.98;
+  }
+  49% {
+    opacity: 0.92;
+    filter: saturate(1.18);
+  }
+  52% {
+    opacity: 0.99;
+  }
+  100% {
+    opacity: 1;
+    filter: saturate(1.08);
+  }
+}
+
+@keyframes rmh-cursor {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rmh-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-6px);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 520px) {
+  .rmh__screenOverlay,
+  .rmh__screenText {
+    left: 32.5%;
+    top: 26.8%;
+    width: 35%;
+    height: 38.5%;
+    border-radius: 8px;
+  }
+
+  .rmh__screenText {
+    padding: 8% 6% 9%;
+  }
+}

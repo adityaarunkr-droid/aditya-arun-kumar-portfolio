@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "image": "atlas.webp",
+  "layout": "grid",
+  "cols": 12,
+  "frameCount": 95,
+  "frameWidth": 1280,
+  "frameHeight": 720
+}

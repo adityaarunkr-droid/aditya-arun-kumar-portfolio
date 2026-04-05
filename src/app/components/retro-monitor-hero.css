@@ -53,31 +53,45 @@
 }
 
 /*
-  CRT screen hit area — tuned for amstrad-hero.png (CTM644 centered in frame).
+  CRT screen — amstrad-hero.png (CTM644). One .rmh__screenPlane holds overlay + text so
+  perspective, radius, and position stay locked together (avoids “two layers” on mobile).
 */
-.rmh__screenOverlay,
-.rmh__screenText {
+.rmh__screenPlane {
   position: absolute;
-  left: 37.1%;
-  top: 25.9%;
-  width: 25.8%;
-  height: 36.5%;
-  border-radius: 10px;
+  z-index: 4;
+  /* Inner glass only — width trimmed so green mask/FX don’t spill onto L/R bezel. */
+  left: 35.2%;
+  top: 20.65%;
+  width: 29.6%;
+  height: 48.5%;
+  transform-origin: 50% 50%;
+  border-radius: 14% / 16%;
   overflow: hidden;
   pointer-events: none;
+  isolation: isolate;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .rmh__screenOverlay {
-  z-index: 4;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 .rmh__screenText {
-  z-index: 5;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7% 6.5% 8.5%;
   box-sizing: border-box;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 /* Darken reflective “off” CRT so phosphor text pops */
@@ -137,6 +151,14 @@
   animation:
     rmh-text-in 0.5s ease-out 0.15s forwards,
     rmh-flicker 6.5s ease-in-out infinite;
+}
+
+/* prefers-reduced-motion + JS instant typewriter */
+.rmh__terminalText--reduced {
+  opacity: 1;
+  animation: none;
+  transform: none;
+  filter: none;
 }
 
 .rmh__line--typed {
@@ -208,17 +230,77 @@
   }
 }
 
-@media (max-width: 520px) {
-  .rmh__screenOverlay,
-  .rmh__screenText {
-    left: 32.5%;
-    top: 26.8%;
-    width: 35%;
-    height: 38.5%;
-    border-radius: 8px;
+/* Tablet / large phone: slight perspective to match CRT angle in photo */
+@media (max-width: 900px) {
+  .rmh__wrap--image {
+    perspective: 1100px;
+  }
+
+  .rmh__screenPlane {
+    left: 31.95%;
+    top: 21.4%;
+    width: 34.1%;
+    height: 47.8%;
+    transform: perspective(1100px) rotateX(2.85deg) rotateY(-0.55deg);
+    transform-origin: 50% 52%;
+    border-radius: 15% / 18%;
   }
 
   .rmh__screenText {
-    padding: 8% 6% 9%;
+    padding: 7.5% 6% 8.5%;
+  }
+}
+
+/* Narrow phones — retuned box + a touch more tilt so edges track the bezel */
+@media (max-width: 520px) {
+  .rmh__wrap--image {
+    perspective: 950px;
+  }
+
+  .rmh__screenPlane {
+    left: 31.55%;
+    top: 21.85%;
+    width: 34.9%;
+    height: 48.4%;
+    transform: perspective(950px) rotateX(3.1deg) rotateY(-0.65deg);
+    transform-origin: 50% 52%;
+    border-radius: 16% / 19%;
+  }
+
+  .rmh__screenText {
+    padding: 8% 5.5% 9%;
+  }
+}
+
+@media (max-width: 380px) {
+  .rmh__screenPlane {
+    left: 31.25%;
+    top: 22.05%;
+    width: 35.5%;
+    height: 48.6%;
+    transform: perspective(900px) rotateX(3.25deg) rotateY(-0.7deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rmh__screenPlane {
+    transform: none !important;
+  }
+
+  .rmh__terminalText,
+  .rmh__terminalText--typing {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .rmh__cursor {
+    animation: none !important;
+    opacity: 0.85;
+  }
+
+  .rmh__bg {
+    transition: none !important;
   }
 }

@@ -2,6 +2,7 @@ import './retro-monitor-hero.css'
 import heroImg from '../../assets/amstrad-hero.png'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
+import { useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 type TypeStep =
@@ -32,7 +33,26 @@ function buildSteps(lines: string[], mode: 'newline' | 'overwrite') {
   return steps
 }
 
-function ScreenTypewriter({
+function ScreenTypewriterStatic({
+  lines,
+  mode,
+}: {
+  lines: string[]
+  mode: 'newline' | 'overwrite'
+}) {
+  const staticLines = mode === 'overwrite' ? [lines[lines.length - 1] ?? ''] : [...lines]
+  return (
+    <div className="rmh__terminalText rmh__terminalText--reduced">
+      {staticLines.map((line, idx) => (
+        <div key={idx} className="rmh__line rmh__line--typed">
+          {line}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ScreenTypewriterAnimated({
   lines,
   typingMs = 42,
   mode = 'newline',
@@ -41,7 +61,6 @@ function ScreenTypewriter({
   lines: string[]
   typingMs?: number
   mode?: 'newline' | 'overwrite'
-  /** When set, wait this long after the last message finishes, then run the whole sequence again. */
   repeatAfterMs?: number
 }) {
   const steps = useMemo(() => buildSteps(lines, mode), [lines, mode])
@@ -167,7 +186,34 @@ function ScreenTypewriter({
   )
 }
 
+function ScreenTypewriter({
+  lines,
+  typingMs = 42,
+  mode = 'newline',
+  repeatAfterMs,
+  reduceMotion,
+}: {
+  lines: string[]
+  typingMs?: number
+  mode?: 'newline' | 'overwrite'
+  repeatAfterMs?: number
+  reduceMotion?: boolean
+}) {
+  if (reduceMotion) {
+    return <ScreenTypewriterStatic lines={lines} mode={mode} />
+  }
+  return (
+    <ScreenTypewriterAnimated
+      lines={lines}
+      typingMs={typingMs}
+      mode={mode}
+      repeatAfterMs={repeatAfterMs}
+    />
+  )
+}
+
 export function RetroMonitorHero({ fullBleed = false }: { fullBleed?: boolean }) {
+  const reduceMotion = useReducedMotion()
   const [bgReady, setBgReady] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
   const Root = fullBleed ? 'div' : 'section'
@@ -196,25 +242,32 @@ export function RetroMonitorHero({ fullBleed = false }: { fullBleed?: boolean })
           className={cn(
             'rmh__bg relative z-[3] transition-opacity duration-500',
             bgReady ? 'opacity-100' : 'opacity-0',
+            reduceMotion && 'transition-none',
           )}
           src={heroImg}
           alt=""
           aria-hidden="true"
+          decoding="async"
+          loading="lazy"
+          sizes="(max-width: 900px) 100vw, min(860px, 78vw)"
           onLoad={() => setBgReady(true)}
         />
 
-        <div className="rmh__screenOverlay" aria-hidden="true">
-          <div className="rmh__screenMask" />
-          <div className="rmh__screenFx" />
-          <div className="rmh__screenGlass" />
-        </div>
+        <div className="rmh__screenPlane">
+          <div className="rmh__screenOverlay" aria-hidden="true">
+            <div className="rmh__screenMask" />
+            <div className="rmh__screenFx" />
+            <div className="rmh__screenGlass" />
+          </div>
 
-        <div className="rmh__screenText" aria-label="Résumé prompt on screen">
-          <ScreenTypewriter
-            mode="overwrite"
-            lines={CRT_MESSAGES}
-            repeatAfterMs={10_000}
-          />
+          <div className="rmh__screenText" aria-label="Résumé prompt on screen">
+            <ScreenTypewriter
+              mode="overwrite"
+              lines={CRT_MESSAGES}
+              repeatAfterMs={10_000}
+              reduceMotion={!!reduceMotion}
+            />
+          </div>
         </div>
       </div>
     </Root>

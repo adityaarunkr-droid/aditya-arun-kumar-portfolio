@@ -14,8 +14,12 @@
   overflow: hidden;
 }
 
-/* Home: when nav switches to horizontal bar, hero insets stay symmetric */
-main[data-nav-mode='horizontal'] .hero-section {
+/*
+ * Home: when nav switches to horizontal bar, hero insets stay symmetric.
+ * Exclude .hero-section--resume: that rule beats .hero-section--resume { padding: 0 } on
+ * padding-left (higher specificity) and mis-centres the Résumé TV + CTA on mobile.
+ */
+main[data-nav-mode='horizontal'] .hero-section:not(.hero-section--resume) {
   padding-left: max(clamp(20px, 3vw, 40px), 4.5rem);
 }
 
@@ -516,20 +520,38 @@ main[data-nav-mode='horizontal'] .hero-section {
     padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
 
+  #resume .hero-section.hero-section--resume {
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+
   #resume .hero-title--resume {
     justify-content: center;
     text-align: center;
+    padding-left: max(12px, env(safe-area-inset-left, 0px));
+    padding-right: max(12px, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
   }
 
   #resume .hero-content--resume {
     align-items: center;
     width: 100%;
     max-width: 100%;
+    margin-inline: auto;
   }
 
   #resume .resume-page-section__tv .tv-scene,
   #resume .resume-page-section__tv .hero-media {
     margin-inline: auto;
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;
+  }
+
+  #resume .resume-page-section__tv .hero-media .rmh--fullBleed {
+    margin-inline: auto;
+    width: 100%;
     max-width: 100%;
   }
 }
@@ -573,6 +595,12 @@ main[data-nav-mode='horizontal'] .hero-section {
   max-width: 100%;
   margin: 0 0 clamp(28px, 5vw, 48px);
   pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .hero-title--resume {
+    margin-bottom: clamp(18px, 4vw, 32px);
+  }
 }
 
 .resume-page-section__tv .tv-scene {
@@ -671,12 +699,30 @@ main[data-nav-mode='horizontal'] .hero-section {
   transform: translateY(0px);
 }
 
+@media (max-width: 900px) {
+  .resume-page-section__cta {
+    margin-top: clamp(16px, 3.5vw, 28px);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+  }
+
+  .resume-page-section__ctaBtn {
+    width: 100%;
+    max-width: 420px;
+    min-height: 48px;
+    min-width: min(100%, 280px);
+    padding: 14px 22px;
+    font-size: 15px;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .title-word,
   .title-word.move,
   .tv-scene,
-  .hero-content .rmh__screenText {
+  .hero-content .rmh__screenText,
+  #resume .resume-page-section__tv .title-word.me {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -688,5 +734,20 @@ main[data-nav-mode='horizontal'] .hero-section {
     color: #f0f0f0;
     background: none;
     filter: none;
+  }
+
+  #resume .resume-page-section__tv .title-word.me {
+    -webkit-text-fill-color: rgba(245, 245, 245, 0.98);
+    color: rgba(245, 245, 245, 0.98);
+    background: none;
+    background-size: auto;
+  }
+
+  .resume-page-section__ctaBtn {
+    transition: none;
+  }
+
+  .resume-page-section__ctaBtn:hover {
+    transform: none;
   }
 }

@@ -1,6 +1,7 @@
 import './about-intro-section.css'
-import { motion, useReducedMotion, useScroll } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
+import { useRunwayScrollProgress } from '../hooks/useRunwayScrollProgress'
 import { AboutScrollyCanvas } from './AboutScrollyCanvas'
 import { AboutScrollyOverlay } from './AboutScrollyOverlay'
 import { HeroVisitorCounter } from './HeroVisitorCounter'
@@ -30,10 +31,7 @@ export function AboutIntroSection() {
   const reduceMotion = useReducedMotion()
   const scrollyRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({
-    target: scrollyRef,
-    offset: ['start start', 'end end'],
-  })
+  const scrollYProgress = useRunwayScrollProgress(scrollyRef, reduceMotion)
 
   return (
     <div className="about-intro">
